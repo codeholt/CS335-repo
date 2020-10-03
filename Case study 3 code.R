@@ -2,6 +2,7 @@ library(ggplot2)
 library(tidyverse)
 library(dplyr)
 library(nycflights13)
+library(pander)
 
 View(nycflights13::flights)
 
@@ -91,14 +92,32 @@ deltaFlights %>%
 
 #incomplete, Ill get back to this later. plus meds are wearing off
 ?count
-numLate <- deltaFlights %>% 
-  group_by(origin) %>% 
-  table(arr_delay>0)
+
+  sum(deltaFlights$arr_delay > 0)
 numLate
 totalObs <- deltaFlights %>% 
   group_by(origin) %>% 
   tally(arr_delay)
 
+#screw what I was doing earlier. Im making a histogram and a distribution summary
+flightSummary <- deltaFlights %>% 
+  group_by(origin) %>% 
+  summarise(min = min(arr_delay, na.rm = TRUE),
+            Q1 = quantile(arr_delay, 0.25,na.rm = TRUE),
+            Q2 = median(arr_delay,na.rm = TRUE),
+            Q3 = quantile(arr_delay, 0.75,na.rm = TRUE),
+            max = max(arr_delay,na.rm = TRUE),
+            wMean = weighted.mean(arr_delay, na.rm = TRUE),
+            mean = mean(arr_delay,na.rm = TRUE))
+flightSummary
+  
+deltaFlights %>% 
+  group_by(origin) %>% 
+  ggplot(aes(x=arr_delay, fill = origin))+
+  geom_density(alpha = .5)+
+  scale_x_continuous(limits = c(-75, 200))+
+  labs(x= "Minutes Late")
+  
 
-
-
+flightSummary %>% pander()
+?alpha
