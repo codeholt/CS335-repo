@@ -19,10 +19,12 @@ gunDeaths <- gunDeaths %>%
               )
             )
 
+#just getting a general overview
 gunDeaths %>% 
-  ggplot(aes(x=intent, group = education, fill = education), 
+  ggplot(aes(group = education, fill = education), 
          color = "black") +
-  geom_bar(stat = "count", position = )
+  geom_bar(aes(x = intent),stat = "count", position = "dodge")+
+  facet_grid(. ~ education)
 
 
 #lubridate::days_in_month(1:12) will give you the number of days in each month
