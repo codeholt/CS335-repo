@@ -9,7 +9,8 @@ library(ggplot2)
 library(tidyverse)
 ```
 
-#Background
+# Background
+
 The graphic shows the data from the gapminder dataset. The Gapminder data is a collection of nations Gross Domestic Product (GDP), Life expentancy, Population, and the year the observations were made. In creating this graph, I learned that labels can be assigned to asthetics, the same way data can be assigned to asthetics. 
 
 ```{r}
