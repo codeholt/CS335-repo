@@ -1,3 +1,6 @@
+library(tidyverse)
+library(ggplot2)
+
 nycflights13::flights
 ??flights
 install.packages(nycflights13)
